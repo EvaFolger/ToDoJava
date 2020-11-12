@@ -16,6 +16,9 @@ public class Note implements Parcelable {
     @ColumnInfo(name = "text")
     public String text;
 
+    @ColumnInfo(name = "note")
+    public String noteT;
+
     @ColumnInfo(name = "timestamp")
     public long timestamp;
 
@@ -35,7 +38,7 @@ public class Note implements Parcelable {
         if (uid != note.uid) return false;
         if (timestamp != note.timestamp) return false;
         if (done != note.done) return false;
-        return text != null ? text.equals(note.text) : note.text == null;
+        return text != null ? text.equals(note.text) : note.text == null && note.equals(note.noteT);
     }
 
     @Override
@@ -52,6 +55,7 @@ public class Note implements Parcelable {
         text = in.readString();
         timestamp = in.readLong();
         done = in.readByte() != 0;
+        noteT=in.readString();
     }
 
     @Override
@@ -60,6 +64,7 @@ public class Note implements Parcelable {
         dest.writeString(text);
         dest.writeLong(timestamp);
         dest.writeByte((byte) (done ? 1 : 0));
+        dest.writeString(noteT);
     }
 
     @Override
@@ -78,4 +83,16 @@ public class Note implements Parcelable {
             return new Note[size];
         }
     };
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Note)) return false;
+//        Note note1 = (Note) o;
+//        return uid == note1.uid &&
+//                timestamp == note1.timestamp &&
+//                done == note1.done &&
+//                text.equals(note1.text) &&
+//                note.equals(note1.note);
+//    }
 }

@@ -5,7 +5,7 @@ android {
     buildToolsVersion "29.0.2"
 
     defaultConfig {
-        applicationId "todo.todojava"
+        applicationId "todo.todojavaupdate"
         minSdkVersion 26
         targetSdkVersion 29
         versionCode 1

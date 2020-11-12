@@ -21,6 +21,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
     private static final String EXTRA_NOTE= "NoteDetailsActivity. EXTRA_NOTE";
     Note note;
     private EditText editText;
+    private EditText editNote;
     public static void  start(Activity caller, Note note){
         Intent intent = new Intent(caller, NoteDetailsActivity.class);
         if (note!=null){
@@ -41,9 +42,11 @@ public class NoteDetailsActivity extends AppCompatActivity {
         setTitle(getString(R.string.note_details_title));
 
         editText =findViewById(R.id.text);
+        editNote=findViewById(R.id.note);
         if (getIntent().hasExtra(EXTRA_NOTE)) {
             note = getIntent().getParcelableExtra(EXTRA_NOTE);
             editText.setText(note.text);
+            editNote.setText(note.noteT);
         } else {
             note = new Note();
         }
@@ -66,6 +69,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
                    note.text=editText.getText().toString();
                    note.done=false;
                    note.timestamp=System.currentTimeMillis();
+                   note.noteT=editNote.getText().toString();
                    if(getIntent().hasExtra(EXTRA_NOTE)){
                        App.getInstance().getNoteDao().update(note);
                    }else {App.getInstance().getNoteDao().insert(note);
